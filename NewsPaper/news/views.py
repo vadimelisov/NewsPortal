@@ -9,7 +9,7 @@ class NewsList(ListView):
     model = Post
     template_name = 'post_list.html'
     context_object_name = 'posts'
-    # ordering = '-time_in'
+    ordering = '-date_in'
 
 
 class NewsDetail(DetailView):
