@@ -1,5 +1,6 @@
 
 {% extends 'default.html' %}
+{% load custom_filters %}
 
 
 
@@ -17,7 +18,7 @@
     <tr>
         <td>{{ post.title }}</td>
         <td>{{ post.time_in|date:'d M Y' }}</td>
-        <td>{{ post.text|truncatewords:20 }}</td>
+        <td>{{ post.text|truncatewords:20|censor }}</td>
         {% for cat in post.category.all %}
         <td>{{ cat.name }}</td>
         {% endfor %}
