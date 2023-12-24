@@ -1,4 +1,4 @@
-from django_filter import FilterSet
+from django_filters import FilterSet
 from .models import Post
 
 class PostFilter(FilterSet):
