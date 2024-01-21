@@ -7,6 +7,9 @@
 {% block content %}
 {% if posts %}
     <h2>Количество постов: {{ posts|length }}</h2>
+    {% if is_not_author %}
+    <button><a href="{% url 'author_now' %}">Стать автором</a> </button>
+    {% endif %}
 <table width="70%" style="margin-top: 35px">
     <tr>
         <td><u>Заголовок</td></u>

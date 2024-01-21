@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-%q6*ts4n+s&5959vt2-!or@-v&_qiba_4$!$8=z0d2xk7$b_w7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -153,6 +153,4 @@ ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
-
-
 ACCOUNT_FORMS = {'signup': 'sign.models.BasicSignupForm'}
