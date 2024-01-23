@@ -1,4 +1,5 @@
 from allauth.core.internal.http import redirect
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.auth.models import Group
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -43,17 +44,20 @@ class NewsSearch(ListView):
         return context
 
 
-class NewsCreate(CreateView):
+class NewsCreate(PermissionRequiredMixin, CreateView):
     form_class = PostForm
     model = Post
     template_name = 'news_create.html'
+    permission_required = ('news.add_post',
+                          'news.change_post')
 
 
 
-class NewsUpdate(UpdateView):
+class NewsUpdate(PermissionRequiredMixin, UpdateView):
     form_class = PostForm
     model = Post
     template_name = 'news_edit.html'
+    permission_required = ('news.change_post')
 
 
 

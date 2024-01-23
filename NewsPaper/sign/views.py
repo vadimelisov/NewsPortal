@@ -11,6 +11,7 @@ from django.contrib.auth.decorators import login_required
 class IndexView(LoginRequiredMixin, TemplateView):
     template_name = 'protect/index.html'
 
+
 class BaseRegisterView(CreateView):
     model = User
     form_class = BaseRegisterForm
