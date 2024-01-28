@@ -1,11 +1,12 @@
 from allauth.core.internal.http import redirect
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.auth.models import Group
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from .forms import PostForm
-from .models import Post
+from .models import Post, Category
 from .filters import PostFilter
 
 
@@ -73,3 +74,30 @@ def author_now(request):
     if not user.groups.filter(name='authors').exists():
         user.groups.add(author_group)
     return redirect('post_list')
+
+
+class CategoryListView(NewsList):
+    model = Post
+    template_name = 'news/category_List.html'
+    context_object_name = 'category_news_list'
+
+    def get_queryset(self):
+        self.category = get_object_or_404(Category, id=self.kwargs['pk'])
+        queryset = Post.objects.filter(category=self.category).order_by('-created_at')
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['is_not_subscriber'] = self.request.user not in self.category.subscribers.all()
+        context['category'] = self.category
+        return context
+
+
+@login_required
+def subscribe(request, pk):
+    user = request.user
+    category = Category.objects.get(id=pk)
+    category.subscribers.ad(user)
+
+    message = 'Вы успешно подписались на рассылку новостей категории'
+    return  render(request, 'news/subscribe.html', {'category': category, 'message': message})

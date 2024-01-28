@@ -4,6 +4,7 @@ from django.db.models import Sum
 from django.db.models.functions import Coalesce
 
 
+
 class Author(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     rating = models.IntegerField(default=0)
@@ -20,6 +21,11 @@ class Author(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=25, unique=True)
+    subscribers = models.ManyToManyField(User, blank=True, null=True, related_name='categories')
+
+
+    def __str__(self):
+        return self.name
 
 
 class Post(models.Model):
@@ -51,6 +57,13 @@ class Post(models.Model):
 
     def __str__(self):
         return f'id-{self.pk}: {self.title}'
+
+    def get_absolute_url(self):
+        return f'/news/{self.id}'
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        cache.delete(f'post-{self.pk}')
 
 
 class PostCategory(models.Model):
