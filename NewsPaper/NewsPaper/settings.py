@@ -13,6 +13,10 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 import os
 
+from dotenv import load_dotenv, find_dotenv
+
+load_dotenv(find_dotenv())
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -21,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-%q6*ts4n+s&5959vt2-!or@-v&_qiba_4$!$8=z0d2xk7$b_w7'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -147,6 +151,8 @@ STATICFILES_DIRS = [
 ]
 
 LOGIN_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = '/news/'
+
 
 SITE_ID = 1
 
@@ -162,10 +168,10 @@ ACCOUNT_FORMS = {'signup': 'sign.models.CommonSignupForm'}
 
 EMAIL_HOST = 'smtp.yandex.ru'  # адрес сервера Яндекс-почты для всех один и тот же
 EMAIL_PORT = 465  # порт smtp сервера тоже одинаковый
-EMAIL_HOST_USER = 'test-mail-elisov'  # ваше имя пользователя, например, если ваша почта user@yandex.ru, то сюда надо писать user, иными словами, это всё то что идёт до собаки
-EMAIL_HOST_PASSWORD = 'elisovvadim123'  # пароль от почты
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')  # ваше имя пользователя, например, если ваша почта user@yandex.ru, то сюда надо писать user, иными словами, это всё то что идёт до собаки
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')  # пароль от почты
 EMAIL_USE_SSL = True  # Яндекс использует ssl, подробнее о том, что это, почитайте в дополнительных источниках, но включать его здесь обязательно
-DEFAULT_FROM_EMAIL = 'test-mail-elisov'
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL')
 
 
 MANAGERS = [
