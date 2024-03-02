@@ -6,6 +6,7 @@ from django.core.cache import cache
 
 
 
+
 class Author(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     rating = models.IntegerField(default=0)

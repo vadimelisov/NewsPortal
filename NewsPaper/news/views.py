@@ -5,6 +5,7 @@ from django.contrib.auth.models import Group
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
+
 from .forms import PostForm
 from .models import Post, Category
 from .filters import PostFilter
