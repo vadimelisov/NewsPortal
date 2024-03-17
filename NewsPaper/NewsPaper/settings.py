@@ -234,7 +234,7 @@ LOGGING = {
             'datefmt': "%d.%m.%Y %H-%M-%S"
         },
         'security': {
-            'format': '%(asctime)s %(levelname)s %(module)s %(message)s,
+            'format': '%(asctime)s %(levelname)s %(module)s %(message)s',
             'datefmt': "%d.%m.%Y %H-%M-%S"
         },
 
