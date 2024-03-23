@@ -1,11 +1,10 @@
 from django.contrib import admin
-from .models import Post, Category
-
+from .models import Post, Category, MyModel
+from modeltranslation.admin import TranslationAdmin
 
 # def nullfy_quantity(modeladmin, request, queryset):
 #     queryset.update(quantity=0)
 # nullfy_quantity.short_description = 'Удалить статью'
-
 
 class PostsAdmin(admin.ModelAdmin):
     list_display = ('author', 'title', 'post_type', 'date_in', 'rating')
@@ -14,5 +13,14 @@ class PostsAdmin(admin.ModelAdmin):
     # actions = [nullfy_quantity]
 
 
+class CategoryAdmin(TranslationAdmin):
+    model = Category
+
+
+class MyModelAdmin(TranslationAdmin):
+    model = MyModel
+
+
+admin.site.register(MyModel)
 admin.site.register(Category)
 admin.site.register(Post, PostsAdmin)
